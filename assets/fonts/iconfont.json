@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "10678400",
+      "name": "book resource",
+      "font_class": "bookresource",
+      "unicode": "e6db",
+      "unicode_decimal": 59099
+    }
+  ]
+}
