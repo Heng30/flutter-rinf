@@ -8,50 +8,57 @@ class Place extends StatefulWidget {
 }
 
 class _PlaceState extends State<Place> {
+  final List<String> _items = ["第一条数据", "第二条数据"];
+  final GlobalKey<AnimatedListState> _globalKey =
+      GlobalKey<AnimatedListState>();
+
+  Widget _buildItem(index) {
+    return ListTile(
+      title: Text(_items[index]),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete),
+        onPressed: () {
+          // due to remove animation, user can tap on the same item multiple times
+          if (index >= _items.length) {
+            return;
+          }
+
+          var item = _buildItem(index);
+          _items.removeAt(index);
+          _globalKey.currentState!.removeItem(
+            index,
+            (context, animation) {
+              return ScaleTransition(
+                scale: animation,
+                child: item,
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return Container(
-        color: Colors.white10,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Positioned(
-                left: 0,
-                width: 200,
-                height: 200,
-                child: Container(
-                  color: Colors.red,
-                  child: Stack(alignment: Alignment.center, children: [
-                    Positioned(
-                        width: 100,
-                        height: 100,
-                        right: 30,
-                        child: Container(
-                          color: Colors.pink,
-                        ))
-                  ]),
-                )),
-            Positioned(
-                right: 0,
-                width: 100,
-                height: 100,
-                child: Container(
-                  color: Colors.blue,
-                )),
-            Positioned(
-                top: 0,
-                width: size.width,
-                height: 100,
-                child: Container(
-                  color: Colors.green,
-                  child: const Align(
-                    child: Text("你好Flutter",
-                        style: TextStyle(fontSize: 25, color: Colors.white)),
-                  ),
-                )),
-          ],
-        ));
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          _items.add("新数据${_items.length + 1}");
+          _globalKey.currentState!.insertItem(_items.length - 1);
+        },
+      ),
+      body: AnimatedList(
+        key: _globalKey,
+        initialItemCount: _items.length,
+        itemBuilder: (context, index, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: _buildItem(index),
+          );
+        },
+      ),
+    );
   }
 }
