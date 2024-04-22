@@ -11,7 +11,7 @@ class _PlaceState extends State<Place> with TickerProviderStateMixin {
   late TabController _tabController;
   final List<String> _items = ["第一条数据", "第二条数据"];
   final GlobalKey<AnimatedListState> _globalKey =
-      GlobalKey<AnimatedListState>();
+      GlobalKey<AnimatedListState>(debugLabel: "4");
 
   bool _implicitAnimationFlag = true;
 
@@ -36,6 +36,7 @@ class _PlaceState extends State<Place> with TickerProviderStateMixin {
 
           var item = _buildItem(index);
           _items.removeAt(index);
+
           _globalKey.currentState!.removeItem(
             index,
             (context, animation) {
@@ -69,8 +70,9 @@ class _PlaceState extends State<Place> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
+    _rotateController.dispose();
+    super.dispose();
   }
 
   @override
@@ -96,6 +98,7 @@ class _PlaceState extends State<Place> with TickerProviderStateMixin {
     return [
       Scaffold(
         floatingActionButton: FloatingActionButton(
+          heroTag: UniqueKey(),
           child: const Icon(Icons.add),
           onPressed: () {
             _items.add("新数据${_items.length + 1}");
@@ -115,6 +118,7 @@ class _PlaceState extends State<Place> with TickerProviderStateMixin {
       ),
       Scaffold(
         floatingActionButton: FloatingActionButton(
+          heroTag: UniqueKey(),
           child: const Icon(Icons.change_history),
           onPressed: () {
             setState(() => _implicitAnimationFlag = !_implicitAnimationFlag);
@@ -407,7 +411,7 @@ class _PlaceState extends State<Place> with TickerProviderStateMixin {
                   );
                 },
                 child: Hero(
-                  tag: _url,
+                  tag: "1",
                   child: Image.network(_url, fit: BoxFit.cover),
                 ),
               ),
@@ -427,7 +431,7 @@ class _PlaceState extends State<Place> with TickerProviderStateMixin {
                   );
                 },
                 child: Hero(
-                  tag: _url2,
+                  tag: 2,
                   child: Image.network(_url2, fit: BoxFit.cover),
                 ),
               ),
@@ -449,7 +453,7 @@ class _PlaceState extends State<Place> with TickerProviderStateMixin {
                   );
                 },
                 child: Hero(
-                  tag: _url + _url2,
+                  tag: 3,
                   child: Image.network(_url2, fit: BoxFit.cover),
                 ),
               ),

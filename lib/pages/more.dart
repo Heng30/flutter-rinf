@@ -24,6 +24,7 @@ class _MoreState extends State<More> {
           height: double.infinity,
           child: const Text("更多...", style: TextStyle(fontSize: 25))),
       floatingActionButton: FloatingActionButton(
+          heroTag: UniqueKey(),
           onPressed: () {
             Navigator.pop(context);
           },

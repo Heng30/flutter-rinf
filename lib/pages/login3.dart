@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../tabs.dart';
 
 class Login3 extends StatefulWidget {
@@ -18,17 +19,20 @@ class _Login3State extends State<Login3> {
         title: const Text("登陆第三步"),
       ),
       body: Container(
-          alignment: Alignment.center,
-          width: double.infinity,
-          height: double.infinity,
-          child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (BuildContext context) {
-                  return const Tabs(title: "Flutter", index: 2);
-                }), (route) => false);
-              },
-              child: const Text("完成", style: TextStyle(fontSize: 25)))),
+        alignment: Alignment.center,
+        width: double.infinity,
+        height: double.infinity,
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigator.pushAndRemoveUntil(context,
+            //     MaterialPageRoute(builder: (BuildContext context) {
+            //   return const Tabs(title: "Flutter", index: 2);
+            // }), (route) => false);
+            Get.offAll(const Tabs(title: "Flutter", index: 2));
+          },
+          child: const Text("完成", style: TextStyle(fontSize: 25)),
+        ),
+      ),
     );
   }
 }

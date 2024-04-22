@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class News extends StatefulWidget {
-  const News({super.key, required this.arguments});
-
-  final Map arguments;
+class Search2 extends StatefulWidget {
+  const Search2({super.key});
 
   @override
-  State<News> createState() => _NewsState();
+  State<Search2> createState() => _Search2State();
 }
 
-class _NewsState extends State<News> {
+class _Search2State extends State<Search2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,19 +16,19 @@ class _NewsState extends State<News> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Row(
             children: [
-              Text("新闻"),
+              Text("搜索2"),
             ],
           )),
       body: Container(
           alignment: Alignment.center,
           width: double.infinity,
           height: double.infinity,
-          child: Text("新闻: ${Get.arguments['title']}",
+          child: Text("你的搜索关键字为：${Get.arguments['keyword']}",
               style: const TextStyle(fontSize: 25))),
       floatingActionButton: FloatingActionButton(
           heroTag: UniqueKey(),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           },
           child: const Icon(Icons.home)),
     );

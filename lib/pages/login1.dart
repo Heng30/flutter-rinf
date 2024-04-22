@@ -17,12 +17,14 @@ class _Login1State extends State<Login1> {
         title: const Text("登陆第一步"),
       ),
       body: Container(
-          alignment: Alignment.center,
-          width: double.infinity,
-          height: double.infinity,
-          child: ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, "/login2"),
-              child: const Text("下一步", style: TextStyle(fontSize: 25)))),
+        alignment: Alignment.center,
+        width: double.infinity,
+        height: double.infinity,
+        child: ElevatedButton(
+          onPressed: () => Navigator.pushNamed(context, "/login2"),
+          child: const Text("下一步", style: TextStyle(fontSize: 25)),
+        ),
+      ),
     );
   }
 }

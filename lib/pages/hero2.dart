@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:get/get.dart';
 
 class MyHero2 extends StatefulWidget {
   const MyHero2({super.key, required this.arguments});
@@ -18,7 +19,7 @@ class _MyHero2State extends State<MyHero2> {
         Navigator.pop(context);
       },
       child: Hero(
-        tag: widget.arguments["src"],
+        tag: 2,
         child: Scaffold(
           backgroundColor: Colors.black,
           body: Container(
@@ -29,7 +30,8 @@ class _MyHero2State extends State<MyHero2> {
               aspectRatio: 16 / 9,
               child: PhotoView(
                 imageProvider: NetworkImage(
-                  widget.arguments["src"],
+                  // widget.arguments["src"],
+                  Get.arguments["src"],
                 ),
               ),
             ),

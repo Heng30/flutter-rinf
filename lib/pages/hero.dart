@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyHero extends StatefulWidget {
   const MyHero({super.key, required this.arguments});
@@ -17,7 +18,7 @@ class _MyHeroState extends State<MyHero> {
         Navigator.pop(context);
       },
       child: Hero(
-        tag: widget.arguments["src"],
+        tag: "1",
         child: Scaffold(
           backgroundColor: Colors.black,
           body: Container(
@@ -27,7 +28,8 @@ class _MyHeroState extends State<MyHero> {
             child: AspectRatio(
               aspectRatio: 16 / 9,
               child: Image.network(
-                widget.arguments["src"],
+                // widget.arguments["src"],
+                Get.arguments["src"],
                 fit: BoxFit.cover,
               ),
             ),

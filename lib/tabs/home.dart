@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'listview.dart';
 import 'leftdrawer.dart';
 import '../pages/search.dart';
+import '../pages/search2.dart';
+import '../pages/login1.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -26,22 +29,32 @@ class _Home extends State<Home> {
               },
             ),
             IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                Get.toNamed("/search2", arguments: {
+                  "keyword": "Flutter",
+                });
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.newspaper),
               onPressed: () {
-                Navigator.pushNamed(context, "/news",
-                    arguments: {"title": "《如何使用Flutter?》"});
+                // Navigator.pushNamed(context, "/news",
+                //     arguments: {"title": "《如何使用Flutter?》"});
+                Get.toNamed("/news", arguments: {"title": "《如何使用Flutter?》"});
               },
             ),
             IconButton(
               icon: const Icon(Icons.login),
               onPressed: () {
-                Navigator.pushNamed(context, "/login1");
+                // Navigator.pushNamed(context, "/login1");
+                Get.off(const Login1());
               },
             ),
             IconButton(
               icon: const Icon(Icons.more_horiz),
               onPressed: () {
-                Navigator.pushNamed(context, "/more");
+                Get.toNamed("/more");
               },
             ),
           ],

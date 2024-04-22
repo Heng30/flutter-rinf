@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import '../tools/keepAliveWrapper.dart';
 import 'dart:async';
 import 'dialog.dart';
@@ -30,9 +31,9 @@ class _MessageState extends State<Message> with SingleTickerProviderStateMixin {
 
   // use GlobalKey can save state, when rotate the screen and change the layout
   final List<Widget> _boxlist = [
-    Box(color: Colors.red, key: GlobalKey()),
-    Box(color: Colors.blue, key: GlobalKey()),
-    Box(color: Colors.green, key: GlobalKey()),
+    Box(color: Colors.red, key: GlobalKey(debugLabel: "1")),
+    Box(color: Colors.blue, key: GlobalKey(debugLabel: "2")),
+    Box(color: Colors.green, key: GlobalKey(debugLabel: "3")),
   ];
 
   @override
@@ -67,9 +68,9 @@ class _MessageState extends State<Message> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
     _pageController.dispose();
+    super.dispose();
 
     if (_timer != null) {
       _timer!.cancel();
@@ -92,31 +93,105 @@ class _MessageState extends State<Message> with SingleTickerProviderStateMixin {
             child: const Text("Simple Dialog")),
         const SizedBox(height: 20),
         ElevatedButton(
-            onPressed: () async {
-              print(await showCDialog(context,
-                  title: "警告！", content: "我是一个警告信息!"));
-            },
-            child: const Text("Customer Dialog")),
+          onPressed: () async {
+            print(
+                await showCDialog(context, title: "警告！", content: "我是一个警告信息!"));
+          },
+          child: const Text("Customer Dialog"),
+        ),
         const SizedBox(height: 20),
         ElevatedButton(
-            onPressed: () async {
-              print(await modelButtonSheet(context));
-            },
-            child: const Text("model Button Sheet")),
+          onPressed: () {
+            Get.defaultDialog(
+              title: "提示信息！",
+              middleText: "确定要删除吗？",
+              confirm: ElevatedButton(
+                  onPressed: () {
+                    print("确定");
+                    Get.back();
+                  },
+                  child: const Text("确定")),
+              cancel: ElevatedButton(
+                  onPressed: () {
+                    print("取消");
+                    Get.back();
+                  },
+                  child: const Text("取消")),
+            );
+          },
+          child: const Text("Getx Dialog"),
+        ),
         const SizedBox(height: 20),
         ElevatedButton(
-            onPressed: () {
-              // no context version only supports android, ios and web
-              Fluttertoast.showToast(
-                  msg: "This is Center Short Toast",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.TOP,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-            },
-            child: const Text("Default Toast"))
+          onPressed: () async {
+            print(await modelButtonSheet(context));
+          },
+          child: const Text("model Button Sheet"),
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () async {
+            Get.bottomSheet(
+              Container(
+                color: Get.isDarkMode ? Colors.black : Colors.white,
+                height: 200,
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.wb_sunny_outlined),
+                      title: Text(
+                        "白天模式",
+                        style: TextStyle(
+                            color:
+                                Get.isDarkMode ? Colors.white : Colors.black),
+                      ),
+                      onTap: () {
+                        Get.changeTheme(ThemeData.light());
+                        Get.back();
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.wb_sunny),
+                      title: Text(
+                        "黑夜模式",
+                        style: TextStyle(
+                            color:
+                                Get.isDarkMode ? Colors.white : Colors.black),
+                      ),
+                      onTap: () {
+                        Get.changeTheme(ThemeData.dark());
+                        Get.back();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+          child: const Text("Getx Button Sheet"),
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {
+            // no context version only supports android, ios and web
+            Fluttertoast.showToast(
+                msg: "This is Center Short Toast",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          },
+          child: const Text("Default Toast"),
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {
+            Get.snackbar("提示信息", "还没有登陆", snackPosition: SnackPosition.BOTTOM);
+          },
+          child: const Text("Getx Toast"),
+        ),
       ]),
       Column(
         children: [
@@ -340,12 +415,13 @@ class ChangeState extends StatefulWidget {
 }
 
 class _ChangeStateState extends State<ChangeState> {
-  final GlobalKey _globalKey = GlobalKey();
+  final GlobalKey _globalKey = GlobalKey(debugLabel: "5");
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        heroTag: UniqueKey(),
         child: const Icon(Icons.add),
         onPressed: () {
           var boxState = _globalKey.currentState as _BoxState;

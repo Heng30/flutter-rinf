@@ -27,6 +27,7 @@ class _SearchState extends State<Search> {
           child: Text("你的搜索关键字为：${widget.keyword}",
               style: const TextStyle(fontSize: 25))),
       floatingActionButton: FloatingActionButton(
+          heroTag: UniqueKey(),
           onPressed: () {
             Navigator.of(context).pop();
           },
