@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'tabs/home.dart';
 import 'tabs/shop.dart';
 import 'tabs/place.dart';

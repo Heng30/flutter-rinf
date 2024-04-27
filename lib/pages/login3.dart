@@ -29,6 +29,7 @@ class _Login3State extends State<Login3> {
             //   return const Tabs(title: "Flutter", index: 2);
             // }), (route) => false);
             Get.offAll(const Tabs(title: "Flutter", index: 2));
+            // Get.offAndToNamed("/");
           },
           child: const Text("完成", style: TextStyle(fontSize: 25)),
         ),

@@ -8,13 +8,19 @@ import '../pages/news.dart';
 import '../pages/login1.dart';
 import '../pages/login2.dart';
 import '../pages/login3.dart';
-import "../../pages/hero.dart";
-import "../../pages/hero2.dart";
-import "../../pages/hero3.dart";
-import "../middleware/more.dart";
+import "../pages/hero.dart";
+import "../pages/hero2.dart";
+import "../pages/hero3.dart";
+import "../pages/nofound.dart";
+import "../middlewares/more.dart";
 
 // used for Get route function
 class AppPage {
+  static final nofound = GetPage(
+    name: "/nofound",
+    page: () => const NoFound(),
+  );
+
   static final routes = [
     GetPage(
       name: "/",

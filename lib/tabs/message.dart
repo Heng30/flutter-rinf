@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../tools/keepAliveWrapper.dart';
+import '../controllers/counter.dart';
 import 'dart:async';
 import 'dialog.dart';
+import 'dart:io' show Platform;
 
 class Message extends StatefulWidget {
   const Message({super.key});
@@ -174,16 +176,22 @@ class _MessageState extends State<Message> with SingleTickerProviderStateMixin {
         ElevatedButton(
           onPressed: () {
             // no context version only supports android, ios and web
-            Fluttertoast.showToast(
-                msg: "This is Center Short Toast",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.TOP,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
+
+            if (Platform.isAndroid || Platform.isIOS) {
+              Fluttertoast.showToast(
+                  msg: "This is Center Short Toast",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.TOP,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            } else {
+              Get.snackbar("提示信息", "不支持Fluttertoast",
+                  snackPosition: SnackPosition.TOP);
+            }
           },
-          child: const Text("Default Toast"),
+          child: const Text("Flutter Toast"),
         ),
         const SizedBox(height: 20),
         ElevatedButton(
@@ -191,6 +199,21 @@ class _MessageState extends State<Message> with SingleTickerProviderStateMixin {
             Get.snackbar("提示信息", "还没有登陆", snackPosition: SnackPosition.BOTTOM);
           },
           child: const Text("Getx Toast"),
+        ),
+        const SizedBox(height: 20),
+        Container(
+          alignment: Alignment.center,
+          width: double.infinity,
+          height: 50,
+          color: Colors.red,
+          child: Obx(
+            () {
+              final CounterController counterController = Get.find();
+              return Text(
+                  "From CounterController value: ${counterController.counter}",
+                  style: Theme.of(context).textTheme.titleLarge);
+            },
+          ),
         ),
       ]),
       Column(

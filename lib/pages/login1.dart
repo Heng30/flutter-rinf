@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Login1 extends StatefulWidget {
   const Login1({super.key});
@@ -21,7 +22,10 @@ class _Login1State extends State<Login1> {
         width: double.infinity,
         height: double.infinity,
         child: ElevatedButton(
-          onPressed: () => Navigator.pushNamed(context, "/login2"),
+          onPressed: () {
+            // Navigator.pushNamed(context, "/login2");
+            Get.toNamed("/login2");
+          },
           child: const Text("下一步", style: TextStyle(fontSize: 25)),
         ),
       ),

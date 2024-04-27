@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'listview.dart';
 import 'leftdrawer.dart';
 import '../pages/search.dart';
-import '../pages/search2.dart';
 import '../pages/login1.dart';
 
 class Home extends StatefulWidget {
@@ -57,8 +56,14 @@ class _Home extends State<Home> {
                 Get.toNamed("/more");
               },
             ),
+            IconButton(
+              icon: const Icon(Icons.error),
+              onPressed: () {
+                Get.toNamed("/404/aaaa/bbbb");
+              },
+            ),
           ],
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text("主页"),
         ),
         drawer: const LeftDrawer(),

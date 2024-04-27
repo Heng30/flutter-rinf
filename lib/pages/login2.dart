@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Login2 extends StatefulWidget {
   const Login2({super.key});
@@ -23,8 +24,9 @@ class _Login2State extends State<Login2> {
           child: ElevatedButton(
               onPressed: () {
                 // you will enter the third step and will jump back to the first step
-                Navigator.pushReplacementNamed(context, "/login3");
+                // Navigator.pushReplacementNamed(context, "/login3");
                 // Navigator.pushNamed(context, "/login3");
+                Get.toNamed("/login3");
               },
               child: const Text("下一步", style: TextStyle(fontSize: 25)))),
     );
